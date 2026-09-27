@@ -7,7 +7,6 @@ use App\Models\City;
 use App\Models\Contact;
 use App\Models\Location;
 use App\Models\Property;
-use App\Models\User;
 
 class DashboardController extends Controller
 {

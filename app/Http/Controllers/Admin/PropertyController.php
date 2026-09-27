@@ -53,21 +53,21 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'property_title'  => 'required|string|max:255',
-            'property_type'   => 'required|integer',
-            'property_desc'   => 'nullable|string',
-            'price'           => 'required|numeric|min:0',
-            'property_size'   => 'nullable|string|max:255',
-            'facing'          => 'nullable|integer',
-            'bhk_type'        => 'nullable|integer',
-            'bathrooms'       => 'nullable|integer',
+            'property_title' => 'required|string|max:255',
+            'property_type' => 'required|integer',
+            'property_desc' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'property_size' => 'nullable|string|max:255',
+            'facing' => 'nullable|integer',
+            'bhk_type' => 'nullable|integer',
+            'bathrooms' => 'nullable|integer',
             'property_status' => 'nullable|integer',
             'furnishing_type' => 'nullable|integer',
-            'parking_type'    => 'nullable|integer',
-            'city'            => 'required|integer',
-            'location'        => 'required|integer',
-            'status'          => 'required|integer',
-            'images.*'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'parking_type' => 'nullable|integer',
+            'city' => 'required|integer',
+            'location' => 'required|integer',
+            'status' => 'required|integer',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
         ]);
 
         $city = City::find($validated['city']);
@@ -76,34 +76,34 @@ class PropertyController extends Controller
         $slug = Str::slug($validated['property_title']);
 
         $property = Property::create([
-            'property_title'  => $validated['property_title'],
-            'property_type'   => $validated['property_type'],
-            'property_desc'   => $validated['property_desc'] ?? '',
-            'price'           => $validated['price'],
-            'property_size'   => $validated['property_size'] ?? '',
-            'facing'          => $validated['facing'],
-            'bhk_type'        => $validated['bhk_type'],
-            'bathrooms'       => $validated['bathrooms'],
+            'property_title' => $validated['property_title'],
+            'property_type' => $validated['property_type'],
+            'property_desc' => $validated['property_desc'] ?? '',
+            'price' => $validated['price'],
+            'property_size' => $validated['property_size'] ?? '',
+            'facing' => $validated['facing'],
+            'bhk_type' => $validated['bhk_type'],
+            'bathrooms' => $validated['bathrooms'],
             'property_status' => $validated['property_status'],
             'furnishing_type' => $validated['furnishing_type'],
-            'parking_type'    => $validated['parking_type'],
-            'city'            => $validated['city'],
-            'city_slug'       => $city->city_slug ?? '',
-            'location'        => $validated['location'],
-            'location_slug'   => $location->location_slug ?? '',
-            'property_slug'   => $slug,
-            'seo_url'         => $slug,
-            'status'          => $validated['status'],
+            'parking_type' => $validated['parking_type'],
+            'city' => $validated['city'],
+            'city_slug' => $city->city_slug ?? '',
+            'location' => $validated['location'],
+            'location_slug' => $location->location_slug ?? '',
+            'property_slug' => $slug,
+            'seo_url' => $slug,
+            'status' => $validated['status'],
         ]);
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
                 $file->move(public_path('assets/frontend/images/properyimages'), $filename);
                 PropertyImage::create([
-                    'property_id'    => $property->id,
-                    'property_image' => 'assets/frontend/images/properyimages/' . $filename,
-                    'created_date'   => now(),
+                    'property_id' => $property->id,
+                    'property_image' => 'assets/frontend/images/properyimages/'.$filename,
+                    'created_date' => now(),
                 ]);
             }
         }
@@ -138,53 +138,53 @@ class PropertyController extends Controller
     public function update(Request $request, Property $property)
     {
         $validated = $request->validate([
-            'property_title'  => 'required|string|max:255',
-            'property_type'   => 'required|integer',
-            'property_desc'   => 'nullable|string',
-            'price'           => 'required|numeric|min:0',
-            'property_size'   => 'nullable|string|max:255',
-            'facing'          => 'nullable|integer',
-            'bhk_type'        => 'nullable|integer',
-            'bathrooms'       => 'nullable|integer',
+            'property_title' => 'required|string|max:255',
+            'property_type' => 'required|integer',
+            'property_desc' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'property_size' => 'nullable|string|max:255',
+            'facing' => 'nullable|integer',
+            'bhk_type' => 'nullable|integer',
+            'bathrooms' => 'nullable|integer',
             'property_status' => 'nullable|integer',
             'furnishing_type' => 'nullable|integer',
-            'parking_type'    => 'nullable|integer',
-            'city'            => 'required|integer',
-            'location'        => 'required|integer',
-            'status'          => 'required|integer',
-            'images.*'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'parking_type' => 'nullable|integer',
+            'city' => 'required|integer',
+            'location' => 'required|integer',
+            'status' => 'required|integer',
+            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
         ]);
 
         $city = City::find($validated['city']);
         $location = Location::find($validated['location']);
 
         $property->update([
-            'property_title'  => $validated['property_title'],
-            'property_type'   => $validated['property_type'],
-            'property_desc'   => $validated['property_desc'] ?? '',
-            'price'           => $validated['price'],
-            'property_size'   => $validated['property_size'] ?? '',
-            'facing'          => $validated['facing'],
-            'bhk_type'        => $validated['bhk_type'],
-            'bathrooms'       => $validated['bathrooms'],
+            'property_title' => $validated['property_title'],
+            'property_type' => $validated['property_type'],
+            'property_desc' => $validated['property_desc'] ?? '',
+            'price' => $validated['price'],
+            'property_size' => $validated['property_size'] ?? '',
+            'facing' => $validated['facing'],
+            'bhk_type' => $validated['bhk_type'],
+            'bathrooms' => $validated['bathrooms'],
             'property_status' => $validated['property_status'],
             'furnishing_type' => $validated['furnishing_type'],
-            'parking_type'    => $validated['parking_type'],
-            'city'            => $validated['city'],
-            'city_slug'       => $city->city_slug ?? '',
-            'location'        => $validated['location'],
-            'location_slug'   => $location->location_slug ?? '',
-            'status'          => $validated['status'],
+            'parking_type' => $validated['parking_type'],
+            'city' => $validated['city'],
+            'city_slug' => $city->city_slug ?? '',
+            'location' => $validated['location'],
+            'location_slug' => $location->location_slug ?? '',
+            'status' => $validated['status'],
         ]);
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $filename = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $filename = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
                 $file->move(public_path('assets/frontend/images/properyimages'), $filename);
                 PropertyImage::create([
-                    'property_id'    => $property->id,
-                    'property_image' => 'assets/frontend/images/properyimages/' . $filename,
-                    'created_date'   => now(),
+                    'property_id' => $property->id,
+                    'property_image' => 'assets/frontend/images/properyimages/'.$filename,
+                    'created_date' => now(),
                 ]);
             }
         }
@@ -195,6 +195,7 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         $property->delete();
+
         return redirect()->route('admin.properties.index')->with('success', 'Property deleted successfully!');
     }
 }

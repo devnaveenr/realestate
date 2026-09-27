@@ -31,10 +31,10 @@ class HomeController extends Controller
             'bhkRelation',
             'images',
         ])
-        ->where('status', 1)
-        ->latest()
-        ->take(6)
-        ->get();
+            ->where('status', 1)
+            ->latest()
+            ->take(6)
+            ->get();
 
         return view('home', compact(
             'slides',

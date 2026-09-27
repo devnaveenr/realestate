@@ -197,7 +197,7 @@
                                 <a href="{{ route('properties.slug', $property->property_slug ?: $property->id) }}" class="view_more_wrap" style="text-decoration:none; color:inherit;">
                                     <div class="list_item_name" style="font-size:18px; font-weight:700; color:#333; margin-bottom:10px;">{{ $property->property_title }}</div>
                                     <div class="list_item_price" style="display:flex; flex-wrap:wrap; gap:15px; margin-bottom:15px;">
-                                        <div class="list_item_de" style="font-weight:700; color:#e65100;">₹ {{ number_format($property->price) }} <span style="display:block; font-weight:400; color:#777; font-size:12px;">Price</span></div>
+                                        <div class="list_item_de" style="font-weight:700; color:#e65100;">{{ $property->formatted_price }} <span style="display:block; font-weight:400; color:#777; font-size:12px;">Price</span></div>
                                         <div class="list_item_de">{{ $property->property_size ?: '1200 Sqft' }} <span style="display:block; color:#777; font-size:12px;">Builtup</span></div>
                                         <div class="list_item_de">{{ $property->facingRelation->facing_type ?? 'East' }} <span style="display:block; color:#777; font-size:12px;">Facing</span></div>
                                         <div class="list_item_de">{{ $property->bhkRelation->bhk_type ?? '2 BHK' }} <span style="display:block; color:#777; font-size:12px;">Apartment Type</span></div>

@@ -121,7 +121,7 @@
                             @endif
                             <div class="sec_pro_det">
                                 <div class="sec_det_name">{{ $property->property_title }} <span>By Verified Owner/Agent</span></div>
-                                <div class="sec_det_price">₹ {{ number_format($property->price) }} <span>price</span></div>
+                                <div class="sec_det_price">{{ $property->formatted_price }} <span>price</span></div>
                                 <div class="sec_det1">{{ $property->bhkRelation->bhk_type ?? '' }} {{ trim($property->typeRelation->property_type ?? '') }}<span>{{ $property->locationRelation->location_name ?? '' }}, {{ $property->cityRelation->city_name ?? '' }}</span></div>
                             </div>
                         </a>

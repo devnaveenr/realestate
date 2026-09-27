@@ -16,10 +16,10 @@ class ContactController extends Controller
     {
         $validated = $request->validate([
             'first_name' => 'required|string|max:100',
-            'last_name'  => 'nullable|string|max:100',
-            'phone'      => 'required|string|max:30',
-            'email'      => 'required|email|max:150',
-            'message'    => 'required|string|max:1000',
+            'last_name' => 'nullable|string|max:100',
+            'phone' => 'required|string|max:30',
+            'email' => 'required|email|max:150',
+            'message' => 'required|string|max:1000',
             'property_id' => 'nullable|integer|exists:properties,id',
         ]);
 

@@ -43,19 +43,23 @@ Route::prefix('admin')->group(function () {
 
         // Admin Properties CRUD
         Route::resource('properties', AdminPropertyController::class)->names([
-            'index'   => 'admin.properties.index',
-            'create'  => 'admin.properties.create',
-            'store'   => 'admin.properties.store',
-            'show'    => 'admin.properties.show',
-            'edit'    => 'admin.properties.edit',
-            'update'  => 'admin.properties.update',
+            'index' => 'admin.properties.index',
+            'create' => 'admin.properties.create',
+            'store' => 'admin.properties.store',
+            'show' => 'admin.properties.show',
+            'edit' => 'admin.properties.edit',
+            'update' => 'admin.properties.update',
             'destroy' => 'admin.properties.destroy',
         ]);
 
         // Cities & Locations
         Route::get('/cities-locations', [CityLocationController::class, 'index'])->name('admin.cities.index');
         Route::post('/cities', [CityLocationController::class, 'storeCity'])->name('admin.cities.store');
+        Route::put('/cities/{city}', [CityLocationController::class, 'updateCity'])->name('admin.cities.update');
+        Route::delete('/cities/{city}', [CityLocationController::class, 'destroyCity'])->name('admin.cities.destroy');
         Route::post('/locations', [CityLocationController::class, 'storeLocation'])->name('admin.locations.store');
+        Route::put('/locations/{location}', [CityLocationController::class, 'updateLocation'])->name('admin.locations.update');
+        Route::delete('/locations/{location}', [CityLocationController::class, 'destroyLocation'])->name('admin.locations.destroy');
 
         // Inquiries
         Route::get('/inquiries', [AdminContactController::class, 'index'])->name('admin.inquiries.index');

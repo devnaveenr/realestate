@@ -10,5 +10,6 @@ class PropertyStatus extends Model
     use HasFactory;
 
     protected $table = 'property_statuses';
+
     protected $fillable = ['property_status'];
 }

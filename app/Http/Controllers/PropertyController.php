@@ -23,7 +23,7 @@ class PropertyController extends Controller
     public function indexBySlug(Request $request, $citySlug, $citySlug2 = null, $locationSlug = null)
     {
         $request->merge([
-            'city_slug'     => $citySlug,
+            'city_slug' => $citySlug,
             'location_slug' => $locationSlug,
         ]);
 
@@ -69,7 +69,7 @@ class PropertyController extends Controller
             $keyword = $request->keyword;
             $query->where(function ($q) use ($keyword) {
                 $q->where('property_title', 'like', "%{$keyword}%")
-                  ->orWhere('property_desc', 'like', "%{$keyword}%");
+                    ->orWhere('property_desc', 'like', "%{$keyword}%");
             });
         }
 
@@ -162,9 +162,9 @@ class PropertyController extends Controller
             'parkingRelation',
             'images',
         ])
-        ->where('property_slug', $slug)
-        ->orWhere('id', $slug)
-        ->firstOrFail();
+            ->where('property_slug', $slug)
+            ->orWhere('id', $slug)
+            ->firstOrFail();
 
         $relatedProperties = Property::with(['cityRelation', 'locationRelation', 'images', 'bhkRelation', 'typeRelation'])
             ->where('id', '!=', $property->id)
@@ -182,7 +182,7 @@ class PropertyController extends Controller
 
         $html = '<option value="">Select Location</option>';
         foreach ($locations as $loc) {
-            $html .= '<option value="' . e($loc->location_slug) . '">' . e($loc->location_name) . '</option>';
+            $html .= '<option value="'.e($loc->location_slug).'">'.e($loc->location_name).'</option>';
         }
 
         return response()->json(['html' => $html]);

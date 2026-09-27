@@ -36,18 +36,70 @@ class CityLocationController extends Controller
     {
         $request->validate([
             'location_name' => 'required|string|max:255',
-            'city_id'       => 'required|integer|exists:cities,id',
+            'city_id' => 'required|integer|exists:cities,id',
         ]);
 
         $city = City::findOrFail($request->city_id);
 
         Location::create([
             'location_name' => $request->location_name,
-            'city_id'       => $city->id,
-            'city_slug'     => $city->city_slug,
+            'city_id' => $city->id,
+            'city_slug' => $city->city_slug,
             'location_slug' => Str::slug($request->location_name),
         ]);
 
         return back()->with('success', 'Location added successfully!');
+    }
+
+    public function updateCity(Request $request, City $city)
+    {
+        $request->validate([
+            'city_name' => 'required|string|max:255|unique:cities,city_name,'.$city->id,
+        ]);
+
+        $newSlug = Str::slug($request->city_name);
+
+        $city->update([
+            'city_name' => $request->city_name,
+            'city_slug' => $newSlug,
+        ]);
+
+        $city->locations()->update(['city_slug' => $newSlug]);
+
+        return back()->with('success', 'City updated successfully!');
+    }
+
+    public function destroyCity(City $city)
+    {
+        $city->locations()->delete();
+        $city->delete();
+
+        return back()->with('success', 'City and its localities deleted successfully!');
+    }
+
+    public function updateLocation(Request $request, Location $location)
+    {
+        $request->validate([
+            'location_name' => 'required|string|max:255',
+            'city_id' => 'required|integer|exists:cities,id',
+        ]);
+
+        $city = City::findOrFail($request->city_id);
+
+        $location->update([
+            'location_name' => $request->location_name,
+            'city_id' => $city->id,
+            'city_slug' => $city->city_slug,
+            'location_slug' => Str::slug($request->location_name),
+        ]);
+
+        return back()->with('success', 'Location updated successfully!');
+    }
+
+    public function destroyLocation(Location $location)
+    {
+        $location->delete();
+
+        return back()->with('success', 'Location deleted successfully!');
     }
 }

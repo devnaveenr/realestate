@@ -85,4 +85,28 @@ class Property extends Model
     {
         return $this->hasMany(Contact::class, 'property_id');
     }
+
+    public function getFormattedPriceAttribute(): string
+    {
+        $price = (float) $this->price;
+        if ($price <= 0) {
+            return '₹ 0';
+        }
+
+        if ($price >= 10000000) {
+            $crores = $price / 10000000;
+            $formatted = (floor($crores) == $crores) ? number_format($crores, 0) : rtrim(rtrim(number_format($crores, 2), '0'), '.');
+
+            return '₹ '.$formatted.' Cr';
+        }
+
+        if ($price >= 100000) {
+            $lakhs = $price / 100000;
+            $formatted = (floor($lakhs) == $lakhs) ? number_format($lakhs, 0) : rtrim(rtrim(number_format($lakhs, 2), '0'), '.');
+
+            return '₹ '.$formatted.' Lacs';
+        }
+
+        return '₹ '.number_format($price);
+    }
 }

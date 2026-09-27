@@ -46,7 +46,10 @@
                 <div class="show_page_left">
                     <div class="list_filter" style="margin-bottom:20px;">
                         <div class="flex-container1" style="display:flex; gap:15px; background:#fff; p-3; border:1px solid #ddd; padding:15px; border-radius:4px;">
-                            <div style="flex-grow: 1" class="active">₹ {{ number_format($property->price) }} <span style="display:block; color:#777; font-size:12px;">Non-negotiable</span></div>
+                            <div style="flex-grow: 1" class="active">
+                                <span style="font-size: 22px; font-weight: 800; color: #e65100;">{{ $property->formatted_price }}</span>
+                                <span style="display:block; color:#777; font-size:12px;">₹ {{ number_format($property->price) }}</span>
+                            </div>
                             <div style="flex-grow: 1">{{ $property->property_size ?: '1200 Sqft' }} <span style="display:block; color:#777; font-size:12px;">Builtup Area</span></div>
                         </div>
                     </div>
@@ -139,7 +142,7 @@
                                     <a href="{{ route('properties.show', $similar->property_slug ?: $similar->id) }}" style="text-decoration:none; color:inherit;">
                                         <div class="list_item_name" style="font-weight:700; font-size:14px; margin-bottom:5px;">{{ $similar->property_title }}</div>
                                         <div class="list_item_price" style="font-size:13px; color:#e65100; font-weight:700;">
-                                            ₹ {{ number_format($similar->price) }}
+                                            {{ $similar->formatted_price }}
                                         </div>
                                     </a>
                                 </div>
