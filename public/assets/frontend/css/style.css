@@ -440,7 +440,58 @@ select.selectmenu {position: relative;display: block;background: #ffffff;width: 
 .bottom-box a { color: #ffffff; }
 
 /* Banner Wrap start */
-.list_banner {background: gray; float: left;width: 100%;clear: both; color: #ffffff; text-align: center; font-size: 14px;}
+.list_banner {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    float: left;
+    width: 100%;
+    clear: both;
+    color: #ffffff;
+    padding: 14px 0;
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.breadcrumbs li {
+    display: inline-flex;
+    align-items: center;
+    color: #94a3b8;
+}
+
+.breadcrumbs li a {
+    color: #cbd5e1;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+
+.breadcrumbs li a:hover {
+    color: #FF385C;
+    text-decoration: underline;
+}
+
+.breadcrumbs li.separator,
+.breadcrumbs li i.fa-angle-right,
+.breadcrumbs li i.fa-arrow-right {
+    margin: 0 8px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.breadcrumbs li span,
+.breadcrumbs li.active span {
+    color: #ffffff;
+    font-weight: 600;
+}
 .list_projects1 {float: right;width: 70%;}
 .list_adds  {float: left;width: 27%;}
 .list_bg { background: #f5f7fb; }

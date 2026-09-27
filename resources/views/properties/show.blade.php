@@ -7,13 +7,31 @@
     <!-- Banner Start -->
     <div class="list_banner">
         <div class="container">
-            <ul class="breadcrumbs">
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li><i class="fa fa-arrow-right"></i></li>
-                <li><a href="{{ route('properties.index') }}">Flats</a></li>
-                <li><i class="fa fa-arrow-right"></i></li>
-                <li><span>Flats Sale in {{ $property->cityRelation->city_name ?? 'Hyderabad' }}</span></li>
-            </ul>
+            <nav aria-label="breadcrumb">
+                <ul class="breadcrumbs">
+                    <li><a href="{{ route('home') }}"><i class="fa fa-home"></i> Home</a></li>
+                    <li class="separator"><i class="fa fa-angle-right"></i></li>
+                    <li><a href="{{ route('properties.index') }}">Flats & Properties</a></li>
+                    @if($property->cityRelation)
+                        <li class="separator"><i class="fa fa-angle-right"></i></li>
+                        <li>
+                            <a href="{{ route('properties.city', ['citySlug' => $property->city_slug, 'citySlug2' => $property->city_slug]) }}">
+                                {{ $property->cityRelation->city_name }}
+                            </a>
+                        </li>
+                    @endif
+                    @if($property->locationRelation)
+                        <li class="separator"><i class="fa fa-angle-right"></i></li>
+                        <li>
+                            <a href="{{ route('properties.city.location', ['citySlug' => $property->city_slug, 'citySlug2' => $property->city_slug, 'locationSlug' => $property->location_slug]) }}">
+                                {{ $property->locationRelation->location_name }}
+                            </a>
+                        </li>
+                    @endif
+                    <li class="separator"><i class="fa fa-angle-right"></i></li>
+                    <li class="active"><span>{{ \Illuminate\Support\Str::limit($property->property_title, 45) }}</span></li>
+                </ul>
+            </nav>
         </div>
     </div>
     <!-- Banner End -->

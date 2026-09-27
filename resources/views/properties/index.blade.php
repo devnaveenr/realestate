@@ -5,15 +5,66 @@
 @section('content')
 
     <!-- Banner Start -->
+    @php
+        $currentCity = !empty($selectedCitySlug) ? $cities->firstWhere('city_slug', $selectedCitySlug) : null;
+        $currentLocation = !empty($selectedLocationSlug) ? $locations->firstWhere('location_slug', $selectedLocationSlug) : null;
+
+        $selectedTypeIds = request()->filled('property_type') ? (is_array(request('property_type')) ? request('property_type') : explode(',', request('property_type'))) : [];
+        $selectedTypes = !empty($selectedTypeIds) ? $propertyTypes->whereIn('id', $selectedTypeIds)->pluck('type_name')->implode(', ') : null;
+
+        $selectedBhkIds = request()->filled('bhk_type') ? (is_array(request('bhk_type')) ? request('bhk_type') : explode(',', request('bhk_type'))) : [];
+        $selectedBhks = !empty($selectedBhkIds) ? $bhkTypes->whereIn('id', $selectedBhkIds)->pluck('bhk_name')->implode(', ') : null;
+    @endphp
     <div class="list_banner">
         <div class="container">
-            <ul class="breadcrumbs">
-                <li><a href="{{ route('home') }}">Home</a></li>
-                <li><i class="fa fa-arrow-right"></i></li>
-                <li><a href="{{ route('properties.index') }}">Flats</a></li>
-                <li><i class="fa fa-arrow-right"></i></li>
-                <li><span>Flats & Properties for Sale</span></li>
-            </ul>
+            <nav aria-label="breadcrumb">
+                <ul class="breadcrumbs">
+                    <li><a href="{{ route('home') }}"><i class="fa fa-home"></i> Home</a></li>
+                    <li class="separator"><i class="fa fa-angle-right"></i></li>
+                    @if($currentCity || $currentLocation || $selectedTypes || $selectedBhks || request('keyword'))
+                        <li><a href="{{ route('properties.index') }}">Flats & Properties</a></li>
+                        
+                        @if($currentCity)
+                            <li class="separator"><i class="fa fa-angle-right"></i></li>
+                            @if($currentLocation || $selectedTypes || $selectedBhks || request('keyword'))
+                                <li>
+                                    <a href="{{ route('properties.city', ['citySlug' => $currentCity->city_slug, 'citySlug2' => $currentCity->city_slug]) }}">
+                                        {{ $currentCity->city_name }}
+                                    </a>
+                                </li>
+                            @else
+                                <li class="active"><span>Properties in {{ $currentCity->city_name }}</span></li>
+                            @endif
+                        @endif
+
+                        @if($currentLocation)
+                            <li class="separator"><i class="fa fa-angle-right"></i></li>
+                            @if($selectedTypes || $selectedBhks || request('keyword'))
+                                <li>
+                                    <a href="{{ route('properties.city.location', ['citySlug' => $currentCity ? $currentCity->city_slug : 'all', 'citySlug2' => $currentCity ? $currentCity->city_slug : 'all', 'locationSlug' => $currentLocation->location_slug]) }}">
+                                        {{ $currentLocation->location_name }}
+                                    </a>
+                                </li>
+                            @else
+                                <li class="active"><span>Properties in {{ $currentLocation->location_name }}</span></li>
+                            @endif
+                        @endif
+
+                        @if($selectedTypes || $selectedBhks || request('keyword'))
+                            <li class="separator"><i class="fa fa-angle-right"></i></li>
+                            <li class="active">
+                                <span>
+                                    @if($selectedBhks){{ $selectedBhks }} @endif
+                                    @if($selectedTypes){{ $selectedTypes }} @else Properties @endif
+                                    @if(request('keyword')) matching "{{ request('keyword') }}" @endif
+                                </span>
+                            </li>
+                        @endif
+                    @else
+                        <li class="active"><span>All Flats & Properties</span></li>
+                    @endif
+                </ul>
+            </nav>
         </div>
     </div>
     <!-- Banner End -->
