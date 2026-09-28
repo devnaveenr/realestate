@@ -11,7 +11,7 @@ img {max-width:100%;}
 .sub_header_left { float: left; font-weight: 500;}
 .sub_header_right { float: right; }
 .sub_header_left span {margin: 0 7px;display: inline-block;}
-.sub_header_left i { margin: 0 5px 0 15px; }
+.sub_header_left i { margin: 0 5px 0 15px; } 
 .sub_header_right a { color: #ffffff;margin: 0 0 0 10px; text-decoration: none;}
 .sub_header_right a:hover { text-decoration: underline; }
 .main_header { float: left; width: 100%; padding: 15px 0;}
@@ -19,7 +19,7 @@ img {max-width:100%;}
 .brand img{ max-width: 100%; }
 .navbar-nav { float: right; padding: 10px 0 0;}
 .navbar-nav a{ display: inline-block; margin: 0 0 0 20px; text-decoration: none; padding: 10px 0; font-size: 15px; color: #000000; font-weight: 500;}
-.navbar-nav a.active {  color: #FF385C; }
+.navbar-nav a.active {  color: #FF385C; } 
 .navbar-nav a:hover {  color: #FF385C; }
 .owl-theme .owl-controls .owl-page.active span { background: #ff1949; }
 .owl-item { position: relative; }
